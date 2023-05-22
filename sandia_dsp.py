@@ -304,8 +304,6 @@ def autoWindowBruteForce(timeVector, signalArray, lossFunc, *searchArgs):
 
     **Author:** Nate Tenorio
 
-    **Date:** 3/24/2023
-
     **Purpose:** Use a brute force method of minimizing the loss function for your input signal.
     It calculates the loss function at every possible start index. It's terrible... but it works.
 
@@ -340,8 +338,6 @@ def ndeWindow(signal, startInd, endInd, *windowArgs, windowMethod=win.hann, plot
     **Function:** ndeWindow()
 
     **Author:** Nate Tenorio
-
-    **Date:** 4/27/2023
 
     **Purpose:** This function takes in an array of signal and multiplies it by a Hann Window. This is done to help smooth out
     a discrete Fourier Transform, for example.
@@ -386,8 +382,6 @@ def ndeFFT(timeVec: np.ndarray,
     **Function:** ndeFFT
 
     **Author:** Nate Tenorio
-
-    **Date:** 5/3/2023
 
     **Purpose:** Receive interpretable one-sided frequency information from the input array of signals, particularly including
     magnitude and phase.

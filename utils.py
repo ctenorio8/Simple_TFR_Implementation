@@ -25,8 +25,6 @@ def config_filenames_dsp(
 
     Author: Nate Tenorio
 
-    Date: 4/6/2023
-
     Purpose: This function handles file name writing for calculated STFTs
 
     Arguments:
@@ -63,8 +61,6 @@ def saveDictAsJSON(dictIn: dict, path: pathlib.Path, fileName: str):
 
     Author: Nate Tenorio
 
-    Date: 4/3/2023
-
     Purpose: This function is a simple dictionary to JSON mapping that allows for easy saving/interpretation of, in this
     case, your measurement inputs.
 
@@ -85,8 +81,6 @@ def pathMaker(inPath=pathlib.Path(__file__).parent, msmtType='measurement') -> p
     function: pathMaker
 
     author: Nate Tenorio
-
-    date: 2/14/2023
 
     purpose: this function hunts for a folder within the directory passed by the inPath argument named 'data' and creates
     a child path with the day's date. It then creates a child path within the date of the format MSMT#, where the # represents
@@ -143,8 +137,6 @@ def dataPathHunter(basePath=pathlib.Path(__file__).parent,
 
     Author: Nate Tenorio
 
-    Date: 4/20/2023
-
     Purpose: This function hunts for the file path of data set that you want to process for the provided measurement.
     The function hunts in the basePath for a folder named 'data', indexes by 'mDate', then 'mType', then 'mNumber'.
 
@@ -155,7 +147,7 @@ def dataPathHunter(basePath=pathlib.Path(__file__).parent,
     - mNumber (Optional): (type: int) the number of the measurement you would like to take
 
     Returns:
-    - mPath: the path of all of the data taken during a given measurement
+    - mPath: the path of all data taken during a given measurement
     """
     dataPath = basePath / 'data'  # Checking for C://users/.../data | / operator on a path object expands it
     if not dataPath.exists():
@@ -181,13 +173,29 @@ def dataPathHunter(basePath=pathlib.Path(__file__).parent,
                 raise SystemExit()
     return dataPath  # Returns C://users/.../data/YYYY_MM_DD/MSMT#
 
+def read_JSON_data(filePath: pathlib.Path):
+    """
+    Function: read_JSON_data(filePath)
+
+    Author: Nate Tenorio
+
+    Purpose: Simple file reading from JSON
+
+    Arguments: Path - a pathlib.Path object WITH FILE EXTENSION
+
+    Returns: data - the data from your json file
+    """
+    with open(filePath) as json_file:
+        data = json.load(json_file)
+        print("Data Loaded Successfully")
+    return data
+
 ########################################################################################################################
 # Loss Functions                                                                                                       #
 ########################################################################################################################
 """
 Function: toneBurstLoss()
 Author: Nate Tenorio
-Date: 5/17/2023
 Purpose: Calculates squared error between the provided signal and a tone burst that arrives at fitted parameter t0
 Arguments:
 - signal(N x 1), the current signal you are performing a line search for
@@ -209,7 +217,6 @@ def toneBurstLoss_t0(t0, timeVec, signal, frequency, cycles):
 """
 Function: toneBurstGrad()
 Author: Nate Tenorio
-Date: 5/17/2023
 Purpose: Calculates the gradient of the LOSS FUNCTION of squared error between the given signal and an ideal tone burst
 Arguments: See Above
 Returns: The gradient of the loss function taken *with respect to the time offset*
@@ -284,7 +291,6 @@ def arbitrary_loss_function(*modifiers,
 """
 Function: bruteForceMinimizer()
 Author: Nate Tenorio
-Date: 5/17/2023
 Purpose: This code implements a brute force method of searching for the location of 
 the minimum value of a scalar input loss function. It is very computationally expensive, but
 is guaranteed to converge. If needed, further work will be done with scipy optimization.
@@ -309,3 +315,4 @@ def bruteForceMinimizer(variable, func, *searchArgs):
             minimum = L
             minimizer = val
     return minimizer, minimum
+
